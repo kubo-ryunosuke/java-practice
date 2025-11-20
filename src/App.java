@@ -13,6 +13,9 @@ public class App {
 
         printSeparator(4, "ErrorHandling (例外とリソース)");
         ErrorHandling.run();
+
+        printSeparator(5, "BonusCalculator (勤続特別手当の計算)");
+        BonusCalculator.run();
         
         System.out.println("\n=== 全工程終了 ===");
     }
