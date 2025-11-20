@@ -19,7 +19,7 @@ public class BonusCalculator {
             new Employee("伊藤", LocalDate.of(2018, 6, 1), null, 5000) // 対象外：部署未定(null)
         );
 
-        // todo: ボーナス計算ロジック
+        // 勤続特別手当を計算
         List<String> report = calcAllowanceReport(employees, LocalDate.now());
 
         // 結果出力
