@@ -37,7 +37,7 @@ public class BonusCalculator {
                 int amount = (int) years * 10000 + baseAllowance.orElse(0); // note: 勉強でなら強引にキャストで許容
                 return new AllowanceResult(e.name(), years, amount);
             })
-            .map(r -> "名前: " + r.name() + " / 年数: " + r.years() + " / 支給額: " + r.totalAmount() + "円")
+            .map(r -> "名前: %s / 年数: %d / 支給額: %d円".formatted(r.name(), r.years(), r.totalAmount()))
             .toList();
     }
 }
