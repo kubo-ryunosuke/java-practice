@@ -33,7 +33,7 @@ public class BonusCalculator {
             .filter(e -> e.departmentId() != null && TARGET_DEPTS.contains(e.departmentId()))
             .map(e -> {
                 long years = ChronoUnit.YEARS.between(e.joinDate(), targetDate);
-                Optional<Integer> baseAllowance = Optional.ofNullable(e.baseAllowance());
+                var baseAllowance = Optional.ofNullable(e.baseAllowance());
                 int amount = (int) years * 10000 + baseAllowance.orElse(0); // note: 勉強でなら強引にキャストで許容
                 return new AllowanceResult(e.name(), years, amount);
             })
