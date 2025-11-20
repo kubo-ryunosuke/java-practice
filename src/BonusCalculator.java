@@ -3,9 +3,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.TabExpander;
+
 public class BonusCalculator {
     // 社員レコード
     record Employee(String name, LocalDate joinDate, Integer departmentId, Integer baseAllowance) {}
+    // 集計対象部署ID
+    private static final List<Integer> TARGET_DEPTS = List.of(10, 20);
 
     public static void run() {
         // テストデータ（不完全なデータや対象外を含む）
@@ -26,11 +30,11 @@ public class BonusCalculator {
 
     static List<String> calcAllowanceReport(List<Employee> list) {
         record AllowanceResult(String name, long years, int totalAmount) {}
-        
+
         var today = LocalDate.now();
 
         return list.stream()
-            .filter(e -> e.departmentId() != null && (e.departmentId() == 10 || e.departmentId() == 20))
+            .filter(e -> e.departmentId() != null && TARGET_DEPTS.contains(e.departmentId()))
             .map(e -> {
                 long years = ChronoUnit.YEARS.between(e.joinDate(), today);
                 Optional<Integer> baseAllowance = Optional.ofNullable(e.baseAllowance());
