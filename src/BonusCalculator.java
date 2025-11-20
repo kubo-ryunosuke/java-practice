@@ -26,12 +26,14 @@ public class BonusCalculator {
 
     static List<String> calcAllowanceReport(List<Employee> list) {
         record AllowanceResult(String name, long years, int totalAmount) {}
+        
         var today = LocalDate.now();
+
         return list.stream()
             .filter(e -> e.departmentId() != null && (e.departmentId() == 10 || e.departmentId() == 20))
             .map(e -> {
                 long years = ChronoUnit.YEARS.between(e.joinDate(), today);
-                Optional<Integer> baseAllowance = Optional.ofNullable(e.baseAllowance);
+                Optional<Integer> baseAllowance = Optional.ofNullable(e.baseAllowance());
                 int amount = (int) years * 10000 + baseAllowance.orElse(0); // note: 勉強でなら強引にキャストで許容
                 return new AllowanceResult(e.name(), years, amount);
             })
