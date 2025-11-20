@@ -3,8 +3,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.text.TabExpander;
-
 public class BonusCalculator {
     // 社員レコード
     record Employee(String name, LocalDate joinDate, Integer departmentId, Integer baseAllowance) {}
