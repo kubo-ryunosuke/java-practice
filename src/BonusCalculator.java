@@ -22,21 +22,19 @@ public class BonusCalculator {
         );
 
         // todo: ボーナス計算ロジック
-        List<String> report = calcAllowanceReport(employees);
+        List<String> report = calcAllowanceReport(employees, LocalDate.now());
 
         // 結果出力
         report.forEach(System.out::println);
     }
 
-    static List<String> calcAllowanceReport(List<Employee> list) {
+    static List<String> calcAllowanceReport(List<Employee> list, LocalDate targetDate) {
         record AllowanceResult(String name, long years, int totalAmount) {}
-
-        var today = LocalDate.now();
 
         return list.stream()
             .filter(e -> e.departmentId() != null && TARGET_DEPTS.contains(e.departmentId()))
             .map(e -> {
-                long years = ChronoUnit.YEARS.between(e.joinDate(), today);
+                long years = ChronoUnit.YEARS.between(e.joinDate(), targetDate);
                 Optional<Integer> baseAllowance = Optional.ofNullable(e.baseAllowance());
                 int amount = (int) years * 10000 + baseAllowance.orElse(0); // note: 勉強でなら強引にキャストで許容
                 return new AllowanceResult(e.name(), years, amount);
